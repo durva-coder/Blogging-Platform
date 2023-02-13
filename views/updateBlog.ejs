@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Blog</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script type="text/javascript" src='https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js'
+        referrerpolicy="origin"></script>
+    <script type="text/javascript">
+        tinymce.init({
+            selector: '#myTextarea',
+       
+            plugins: [
+                'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
+                'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen', 'insertdatetime',
+                'media', 'table', 'emoticons', 'template', 'help'
+            ],
+            toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | ' +
+                'bullist numlist outdent indent | link image | print preview media fullscreen | ' +
+                'forecolor backcolor emoticons | help',
+            menu: {
+                favs: { title: 'My Favorites', items: 'code visualaid | searchreplace | emoticons' }
+            },
+            menubar: 'favs file edit view insert format tools table help',
+            content_css: 'css/content.css'
+        });
+    </script>
+
+    <link href="/public/css/styles.css" rel="stylesheet" />
+    <link href="/public/css/myStyles.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+</head>
+
+<body class="addCategory">
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
+            <%- include ("partials/sidebar") %>
+                <div class="col py-10">
+                    <div class="row py-10">
+
+                        <%- include ("partials/headerNav") %>
+                    </div>
+
+                    <div class="container">
+                        <div class="form-title">
+                            <h2 class="categoryHead">Update Blog</h2>
+                        </div>
+                        <form class="form-id" enctype="multipart/form-data" action="/admin/updateBlog/<%= blogs._id %>" method="post">
+                            <div class="mb-3">
+                                <div class="form-group">
+                                    <label for="usr">Blog Name:</label>
+                                    <input name="name" type="text" class="form-control" id="name" minlength="3" maxlength="30"
+                                        value="<%= blogs.name %>" required>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="usr" class="form-label">Category:</label>
+                                <select class="form-select" aria-label="Default select example" id="category"
+                                    name="category" value="<%= blogs.category %>">
+                                 
+                                    <% for(var i=0; i< categories.length; i++) { %>
+                                    <% if(categories[i].category == blogs.category) { %>
+            
+                                    <option value="<%= categories[i]._id %>" selected>
+                                        <%= categories[i].category %>
+                                    </option>
+                                     <% } else { %>
+                                        <option value="<%= categories[i]._id %>"> <%= categories[i].category %> </option>
+                                    <% } %>
+                                    <% } %>
+                                    
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="usr" class="form-label">Description:</label>
+                                <textarea class="textarea" id="myTextarea" name="description" class="description"><%= blogs.description %></textarea>
+                            </div>
+
+                        
+                            <div class="mb-3">                               
+                                <label for="usr" class="form-label">Upload Blog Image</label>
+                                <img src="<%= blogs.blogImage %>" alt="<%= blogs.name %> blog's image" width="50" height="50">
+                                <input type="file" class="form-control" id="blogImage" name="blogImage" />
+                            </div>
+
+                            <button type="submit" class="btn btn-primary blog" style="width:90px;"
+                                data-id="<%= blogs._id %>" value="Update">Update</button>
+                            <a href="/admin/show-all-blogs" class="btn btn-danger" role="button">Cancel</a>
+                        </form>
+                    </div>
+
+                </div>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+    <script>
+
+        // $('.blog').on('click', function () {
+        //     alert("hjkhk")
+        //     let _id = $(this).data('id');
+        //     alert(_id)
+
+        //     let name = $('#name').val();
+        //     alert(name)
+
+        //     let category = $('#category').find(":selected").val();
+        //     alert(category)
+            
+        //     let description = tinymce.get('myTextarea').getContent();
+        //     alert(description);
+
+        //     $.ajax({
+        //         type: 'PUT',
+        //         url: '/admin/updateBlog/' + _id,
+        //         data: { name, category, description},
+        //         success: function (data) {
+        //             alert('blog updated');
+
+        //             //  location.reload();
+        //         }
+        //     });
+
+        //     return false;
+
+        // });
+    </script>
+</body>
+
+</html>

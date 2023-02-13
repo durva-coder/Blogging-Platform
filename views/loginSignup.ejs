@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="/public/css/myStyles.css" rel="stylesheet">
+    <style>
+      .card {
+          width: 35rem; 
+          height: 23rem; 
+      
+          background-color: #3F3168;
+          color: white;
+          border-radius: 5%;
+      }
+
+
+      div.alert {
+        height: fit-content;
+      }
+
+      .error{
+        padding: 20px;
+      }
+
+    </style>
+</head>
+
+<body class="centerform" >
+  
+  <div class="error">
+    <% if (err !== null) { %>
+      <% if (err !==  '') { %>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong><%= err %></strong> 
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% } %>
+    <% } %>
+  </div>
+
+  <div class="card">
+  <div class="container mt-4 ">
+    <h1 class="login-form">Login Form</h1>
+    <form action="/admin/login" method="POST" class="row">
+      <div class="mb-3  mt-4 ">
+        
+          <label for="staticEmail" class="col-form-label">Email</label>
+          <div class="col-sm-12">
+            <input type="email" class="form-control" id="staticEmail" name="email" required>
+          </div>
+        
+      </div>
+      <div class="mb-3 ">
+       
+          <label for="inputPassword" class="col col-form-label">Password</label>
+          <div class="col-sm-12">
+            <input type="password" class="form-control" id="inputPassword" name="password" required>
+          </div>
+      </div>
+      
+      &nbsp; &nbsp; 
+      
+      <button type="submit" class="btn btn-primary" style="width:90px;">Login</button>
+    </form>
+
+  </div>
+
+</div>
+  <br>
+
+  <a class="btn btn-light" href="/homePage" role="button">Continue as Guest User</a>
+
+
+  <script src="homePage.ejs"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

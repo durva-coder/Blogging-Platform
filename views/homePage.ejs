@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Blog Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+    <link href="/public/css/styles.css" rel="stylesheet" />
+
+    <link href="/public/css/myStyles.css" rel="stylesheet" />
+
+    <style>
+        .my-navbar {
+            background-color: #CBC3E3;
+        }
+
+        .nav-image {
+            width: 60px;
+            color: #3F3168;
+        }
+
+        .card {
+            background-color: #CBC3E3;
+            color: white;
+        }
+
+        .readMore p, .readMore p div{
+            white-space: nowrap;
+            width: 60px;
+            height: 50px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .no-blog-card {
+        height: 63vh;
+        background-color: white;
+        border: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Responsive navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark my-navbar fixed-top">
+        <div class="container">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="navbar-brand" href="#"><img class="nav-image" src="/public/logo.jpeg"></a>
+                </li>
+            </ul>
+            <a class="btn btn-primary" href="/admin/adminLogin" role="button">Admin Control</a>
+        </div>
+    </nav>
+    <!-- Page header with logo and tagline-->
+    <header class="py-5 bg-light border-bottom mb-4">
+        <div class="container">
+            <div class="text-center my-5">
+                <h1 class="fw-bolder">Welcome to Blog Home!</h1>
+                <p class="lead mb-0">A Bootstrap 5 starter layout for your next blog homepage</p>
+            </div>
+        </div>
+    </header>
+    <!-- Page content-->
+    <div class="container">
+        <div class="row">
+            <!-- Blog entries-->
+            <div class="col-lg-8">
+                <!-- Featured blog post-->
+                <% if(blogs.length > 0) { %>
+                <div class="card mb-4">
+                    <a href="#!">
+                        <img class="card-img-top post-title" src="<%= blogs[0].blogImage %>" alt="..." />
+                    </a>
+                    <div class="card-body">
+                        <div class="small text-muted"> <%= blogs[0].publishDate.toDateString() %> </div>
+                        <h2 class="card-title"> <%= blogs[0].name %> </h2>
+                        <div class="card-text readMore">
+                            <p class="description">
+                                <%= blogs[0].description %>
+                            </p>
+                        </div>
+                        
+                        <a class="btn btn-primary" href="/userDisplayBlog/<%= blogs[0].slug %>" role="button" >Read more →</a>
+                    </div>
+                </div>
+                <!-- Nested row for non-featured blog posts-->
+                <div class="row">
+                    <% for(let i=1; i < blogs.length; i++) { %>
+                    <div class="col-lg-6 my-2">
+                        <!-- Blog post-->
+                            <div class="card mb-2 h-100">
+                                <div class="card-header mt-0 p-0 h-60">
+                                    <!-- Featured -->
+                                    <img class="card-img-top img-fluid" src="<%= blogs[i].blogImage %>"
+                                    alt="..." style="height: 250px;"/>
+                                  </div>
+                                <div class="card-body">
+                                    <div class="small text-muted"><%= blogs[i].publishDate.toDateString() %></div>
+                                    <h2 class="card-title h4"><%= blogs[i].name %></h2>
+                                    <div class="card-text readMore">
+                                        <p class="description">
+                                            <%= blogs[i].description %>
+                                        </p>
+                                    </div>
+                        
+                                    <a class="btn btn-primary" href="/userDisplayBlog/<%= blogs[i].slug %>" role="button" >Read more →</a>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    <% } %>
+                </div>
+                <% } else { %>
+                    <div class="card mb-4 no-blog-card">
+                        
+                        <div class="card-body">
+                            <div class="small text-muted">  </div>
+                            <h2 class="card-title text-danger"> No blogs to view </h2>
+                          
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+            <!-- Side widgets-->
+            <div class="col-lg-4">
+                <!-- Search widget-->
+                <div class="card mb-4">
+                    <div class="card-header">Search</div>
+                    <div class="card-body">
+                        <form action="/search" method="GET">
+                            <div class="input-group">
+                                <input class="form-control" type="text" placeholder="Enter search term..."
+                                aria-label="Enter search term..." aria-describedby="button-search" name="name"/>
+                                <button class="btn btn-primary" id="button-search" type="submit" >Go!</button>
+                                <% for(let i=0; i < blogs.length; i++) { %>
+                                    <% if(blogs[i].name == blogs.name) { %>
+                                <% } else { %>
+                                <% } %>
+                                <% } %>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
+         
+
+            </div>
+        </div>
+    </div>
+    <!-- Footer-->
+    <footer class="py-2 my-navbar">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2023
+            </p>
+        </div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <script>
+        $('.description').each(function (index) {
+            let txt = $(this).text()
+            $(this).html(txt);
+        });
+    </script>
+    
+</body>
+
+</html>

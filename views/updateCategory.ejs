@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Category</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="/public/css/styles.css" rel="stylesheet" />
+    <link href="/public/css/myStyles.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+</head>
+<body class="addCategory">
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
+          <%- include ("partials/sidebar") %>
+          <div class="col py-10">
+            <div class="row py-10">
+      
+              <%- include ("partials/headerNav") %>
+            </div>
+       
+            <div class="container">
+                <div class="form-title">
+                    <h2 class="categoryHead">Update Category</h2>
+                </div>
+                <form class="form-id" method="post" action="/admin/updateCategory/">
+                    <div class="form-group">
+                        <label for="usr">Category:</label>
+                        <input name="category" type="text" class="form-control" id="category" minlength="3" maxlength="15" value="<%= categories.category %>" required>
+                    </div>
+
+                    <br>
+                    <input type="button" class="btn btn-primary category" style="width:90px;" data-id="<%= categories._id %>" value="Update" />
+                    <td><a href="/admin/show-all-categories" class="btn btn-danger" role="button">Cancel</a></td>
+                </form>
+            </div>
+        
+        </div>  
+    
+        </div>
+      </div>
+
+      <script>
+        $('.category').on('click', function(){
+         
+         let _id = $(this).data('id');
+         var category = $('#category').val();
+         alert(category)
+      
+         $.ajax({
+           type: 'PUT',
+           url: '/admin/updateCategory/' + _id,
+           data: {category: category},
+           success: function(data){
+             alert('category updated');
+             
+           }
+         });
+   
+         return false;
+   
+       });
+      </script>
+</body>
+</html>

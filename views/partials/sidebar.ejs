@@ -1,0 +1,55 @@
+<!-- sidebar -->
+<div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 sidebar">
+    <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+        <a href="/admin/dashboard"
+            class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+            <i class="fa-solid fa-house-chimney text-white"></i>
+            <span class="fs-5 d-none d-sm-inline"> &nbsp; Admin Panel</span>
+        </a>
+        <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+
+            <li>
+                <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                    <i class="fa-solid fa-blog text-white"></i>
+                    <span class="ms-1 d-none d-sm-inline link-light">Blogs</span> </a>
+                <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
+                    <li class="w-100">
+                        <a href="/admin/show-all-blogs" class="nav-link px-0">
+                            <i class="fa-solid fa-blog text-white"></i>
+                            <span class="d-none d-sm-inline link-light">All Blogs</span> </a>
+                    </li>
+                    <li>
+                        <a href="/admin/blogForm" class="nav-link px-0">
+                            <i class="fa-solid fa-plus text-white"></i>
+                            <span class="d-none d-sm-inline link-light">Add New Blogs</span> </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
+                    <i class="fa-solid fa-bars text-white"></i>
+                    <span class="ms-1 d-none d-sm-inline link-light">Category</span></a>
+                <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
+                    <li class="w-100">
+                        <a href="/admin/show-all-categories" class="nav-link px-0">
+                            <i class="fa fa-th-large text-white"></i>
+                            <span class="d-none d-sm-inline link-light">All Categories</span> </a>
+                    </li>
+                    <li>
+                        <a href="/admin/categoryForm" class="nav-link px-0">
+                            <i class="fa-solid fa-plus text-white"></i>
+                            <span class="d-none d-sm-inline link-light">Add New Category</span> </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="/admin/logout" class="nav-link px-0 align-middle">
+                    <i class="fa-solid fa-right-from-bracket text-white"></i>
+                    <span class="ms-1 d-none d-sm-inline link-light">Log Out</span> </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- /sidebar -->

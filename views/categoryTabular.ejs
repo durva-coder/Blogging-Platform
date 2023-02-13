@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <link href="/public/css/styles.css" rel="stylesheet" />
+    <link href="/public/css/myStyles.css" rel="stylesheet">
+    <title>All Categories</title>
+
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
+            <%- include ("partials/sidebar") %>
+                <div class="col py-10">
+                    <div class="row py-10">
+
+                        <%- include ("partials/headerNav") %>
+                    </div>
+
+                    <!-- Show All categories in tabular format -->
+
+                    <div class="container-xl table-container">
+                        <div class="table-responsive table-start">
+                            <div class="table-wrapper">
+                                <div class="table-title">
+                                    <div class="row table-row">
+                                        <div class="col-sm-6">
+                                            <h2> View All Categories </h2>
+                                            <br><br>
+                                        </div>
+                                    </div>
+                                </div>
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Category</th>
+                                            <th>Edit</th>
+                                            <th>Delete</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody>
+                                        <tr>
+                                            <% for(var i=0; i< categories.length; i++) { %>
+                                        <tr>
+
+                                            <% if(!categories[i].isDeleted) { %>
+                                            <td>
+                                                <%= categories[i].category %>
+                                            </td>
+
+                                            <td>
+                                                <a href="/admin/displayCategoryForm/<%= categories[i]._id %>" class="btn btn-primary update-btn" role="button">Edit</a>
+                                                
+                                            </td>
+
+                                            <td>
+                                                <button type="button" class="btn btn-danger delete" data-id="<%= categories[i]._id %>">Delete</button>
+                                            </td>
+
+                                            <% }else { %>
+                                            <td style="text-decoration: line-through;">
+                                                <%= categories[i].category %>
+                                            </td>
+                                            <td>
+                                                
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-primary restore" data-id="<%= categories[i]._id %>">Restore</button>
+                                            </td>
+                                            <% } %>
+                                                
+                                        </tr>
+                                            <% } %>
+                                        </tr>
+                                
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- completed categories tabular -->
+                    
+                </div>
+        </div>
+    </div>
+
+    <script>
+        // Deleting one category
+        $('.delete').on('click', function () {
+            let _id = $(this).data('id');
+            // alert(_id);
+            if (confirm("Are you sure ?")) {
+                $.ajax({
+                    type: 'DELETE',
+                    url: '/admin/deleteCategory/' + _id,
+                    success: function (data) {
+                        alert('category deleted');
+                        location.reload();
+                    }
+                });
+            }
+        });
+
+        $('.restore').on('click', function () {
+            let _id = $(this).data('id');
+            alert(_id);
+            if (confirm("Are you sure ?")) {
+                $.ajax({
+                    type: 'PUT',
+                    url: '/admin/restoringCategory/' + _id,
+                    success: function (data) {
+                        alert('category restored');
+                        location.reload();
+                    }
+                });
+            }
+        });
+
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="../views/addCategory.ejs"></script>
+</body>
+
+</html>
