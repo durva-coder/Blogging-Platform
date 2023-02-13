@@ -54,7 +54,7 @@ exports.dashboardPageRender = (req, res, next) => {
                 error: err
             });
         });
-    // res.render('dashboard');
+    
 }
 
 // view each blog 
@@ -83,18 +83,6 @@ exports.blogTabularRender = (req, res, next) => {
         .exec()
         .then(docs => {
             console.log(docs);
-        //   const response = {
-        //     count: docs.length,
-        //     blogs: docs.map(doc => {
-        //         return {
-        //             name: doc.name,
-        //             category: doc.category,
-        //             description: doc.description,
-        //         }
-        //     })
-        //   };
-        //   res.render('homePage', { blogs: response });
-        //   res.status(200).json(response);  
         res.render('blogTabular', {blogs: docs});
         })
         .catch(err => {
@@ -103,7 +91,7 @@ exports.blogTabularRender = (req, res, next) => {
                 error: err
             });
         });
-    // res.render('blogTabular');
+  
 }
 
 // show all categories in tabular format
@@ -112,16 +100,6 @@ exports.categoryTabularRender = (req, res, next) => {
     Category.find()
         .exec()
         .then(docs => {
-        //   const response = {
-        //     count: docs.length,
-        //     categories: docs.map(doc => {
-        //         return {
-        //             category: doc.category,
-        //         }
-        //     })
-        //   };
-        //   res.status(200).json(response);  
-        // console.log(docs);
           res.render('categoryTabular', {categories: docs});
         })
         .catch(err => {
@@ -130,7 +108,6 @@ exports.categoryTabularRender = (req, res, next) => {
                 error: err
             });
         });
-    // res.render('categoryTabular', {categories: categories});
 }
 
 // add category form
@@ -153,7 +130,6 @@ exports.addBlogFormRender = (req, res, next) => {
                 error: err
             });
         });
-    // res.render('addBlog', { message: '', err: null });
 }
 
 // deleting a blog
@@ -184,7 +160,6 @@ exports.updateCategory = async (req, res, next) =>{
             data: categories
         })
        
-        // res.render('categoryTabular', {categories:categories});
     } catch (error) {
         console.log(error);
     }
@@ -247,7 +222,6 @@ exports.updateBlog = async (req, res, next) =>{
             let blogs = await Blog.findOneAndUpdate( {_id: _id}, updateParams);
             return res.status(200).redirect(`/admin/displayBlogForm/${_id}`)
         }
-            // res.render('categoryTabular', {categories:categories});
         } catch (error) {
             console.log(error);
         }
@@ -265,7 +239,6 @@ exports.updateBlogFormRender = async (req, res, next) => {
         console.log(docs);
         res.status(200).render('updateBlog',{err:null ,categories:docs, blogs:blogs});
     })
-    // res.render('updateBlog', {blogs: blogs});
 }
 
 // login concept
@@ -287,9 +260,6 @@ exports.adminLogin = (req, res, next) => {
 
                     return res.render('loginSignup', { message: 'Error in login credentials', err: 'Wrong credentials' })
 
-                    // return res.status(401).json({
-                    //     message: 'Auth failed'
-                    // });
                 } else {
                     const token = jwt.sign({
                         email: admin[0].email,
@@ -306,28 +276,14 @@ exports.adminLogin = (req, res, next) => {
                   })
                   
                   return res.redirect('/admin/dashboard');
-                    // return res.status(200).json({
-                    //     message: 'Auth successful',
-                    //     token: token
-                    // });
+                   
                 }
-                // res.cookie("access_token", token, {
-                //     httpOnly: true,
-                //     secure: process.env.NODE_ENV === "production",
-                //   })
-                //   .status(200).json({ 
-                //         message: "Logged in successfully"
-                //   });
-                // res.status(401).json({
-                //     message: 'Auth failed'
-                // });
+              
             });
         })
         .catch( err => {
             console.log(err);
-        //     res.status(500).json({
-        //     error: err
-        // });
+       
         return res.render('loginSignup', { message: 'Error in login credentials', err: err })
     });
 }
@@ -337,9 +293,7 @@ exports.adminLogout = (req, res, next) => {
     return res.clearCookie("access_token")
         .status(200)
         .redirect('/admin/adminLogin')
-        // .json({
-        //     message: "Successfully logged out"
-        // });
+        
 }
 
 // adding blog concept
@@ -363,28 +317,13 @@ exports.blogsCreateBlog = (req, res, next) => {
             .save()
             .then(result => {
                 console.log(result);
-                // res.status(201).json({
-                //     message: 'Created blog successfully',
-                //     createdBlog: {
-                //         name: result.name,
-                //         slug: result.slug,
-                //         category: result.category,
-                //         description: result.description,
-                //         publishDate: result.publishDate,
-                //         _id: result._id,
-                //     }
-                // });
-                // res.status(200).json({
-                //     message: 'Blog added successfully',
-                // })
+               
                 Category.find({}).exec().then(docs => {
                         console.log(docs);
                         res.status(200).render('addBlog',{categories:docs, message: 'Blog added successfully', err: ''});
                      
                 })
-                // res.redirect('/admin/addBlog')
-                // res.redirect('/admin/show-all-blogs');
-                // res.render('addBlog', { message: 'Blog added successfully', err: ''})
+               
             })
             .catch(err => {
                 console.log(err);
@@ -406,64 +345,15 @@ exports.categoryCreateCategory = (req, res, next) => {
         .save()
         .then(result => {
             console.log(result);
-            // res.status(201).json({
-            //     message: 'Created category successfully',
-            //     createdCategory : {
-            //         category: result.category,
-            //         _id: result._id,
-            //     }
-            // });
-            // res.redirect('/admin/show-all-categories');
+           
             res.render('addCategory', { message: 'Category added successfully', err: ''})
         })
         .catch(err => {
             console.log(err);
-            // res.status(500).json({
-            //     error: err
-            // });
+
 
             return res.render('addCategory', { message: 'Error in adding category', err: err })
         });
 }
 
-// sinup concept
-// exports.admin_signup = (req, res, next) => {
-//         Admin.find({email: req.body.email})
-//             .exec()
-//             .then(admin => {
-//                 if(admin.length >= 1){
-//                     return res.status(409).json({
-//                         message: 'Mail exists'
-//                     });
-//                 } else {
-//                     bcrypt.hash(req.body.password, 10, (err, hash) => {
-//                         if(err) {
-//                             return res.status(500).json({
-//                                 error: err
-//                             });
-//                         } else{
-//                             const admin = new Admin({
-//                                 _id: new mongoose.Types.ObjectId(),
-//                                 email: req.body.email,
-//                                 password: hash
-//                             });
-//                             admin
-//                                 .save()
-//                                 .then(result => {
-//                                     console.log(result);
-//                                     res.status(201).json({
-//                                         message: 'Admin created'
-//                                     });
-//                                 })
-//                                 .catch(err => {
-//                                     console.log(err);
-//                                     res.status(500).json({
-//                                         error: err
-//                                 });
-//                             })
-//                         }
-//                     });
-//                 }
-//             })
-    
-//     }
+
