@@ -12,7 +12,7 @@ const userRoutes = require('./api/routes/user');
 
 mongoose.set('strictQuery', false);
 // mongoose.connect('mongodb://durvab:'+process.env.MONGO_ATLAS_PW+'@15.206.7.200:28017/durvab?authSource=admin&readPreference=primary&directConnection=true&ssl=false', { useNewUrlParser: true });
-mongoose.connect('mongodb+srv://durvarbanthia:durvarbanthia@cluster0.mempsye.mongodb.net/', { useNewUrlParser: true });
+mongoose.connect('mongodb+srv://durvarbanthia:durvarbanthia@blogging-platform.fynfmzt.mongodb.net/', { useNewUrlParser: true });
 
 mongoose.Promise = global.Promise;
 
