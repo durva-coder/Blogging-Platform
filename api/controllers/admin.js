@@ -265,7 +265,8 @@ exports.adminLogin = (req, res, next) => {
                         email: admin[0].email,
                         adminId: admin[0]._id
                     }, 
-                    process.env.JWT_KEY,
+                    // process.env.JWT_KEY,
+                    secret,                       
                     {
                         expiresIn: "1h"
                     }
