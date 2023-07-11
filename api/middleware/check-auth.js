@@ -7,7 +7,7 @@ module.exports = (req, res, next) => {
             return res.redirect('/admin/adminLogin')
         }
         console.log(token);
-        const decoded = jwt.verify(token, process.env.JWT_KEY);
+        // const decoded = jwt.verify(token, process.env.JWT_KEY);
         const decoded = jwt.verify(token, "secret");
         console.log(decoded);
         req.adminData = decoded;
